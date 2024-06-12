@@ -133,7 +133,7 @@ AVX2 Int Sum Result: -1826000660 Time: 0.463102 seconds
 ```
 It’s worse and it’s… wrong? These sums should all be the same. What is going on here?
 
-#Looking at the dissassembly
+# Looking at the dissassembly
 
 Okay let’s go ahead and check out the resulting Rosetta2 translation of this program and see if we can figure out what the heck is going on.
 
