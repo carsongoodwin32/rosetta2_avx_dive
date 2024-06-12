@@ -1,4 +1,4 @@
-# rosetta2 avx implementation deep dive
+# rosetta2 avx implementation experimentation
 
 ## Preamble and history
 
