@@ -4,10 +4,10 @@
 This repo contains the results of AVX and AVX2 code experiments I ran on June 11, 2024 on the macOS 15.0 Developer Beta version of Rosetta2
 
 The files contained in this repo include:
--Code run on Rosetta that includes SSE2, AVX, and AVX2 codepaths
--Separate AVX and AVX2 only versions of that code
--Rosetta aot compilation files for that code
--Full Ghidra Disassemblies of those AOT files
+- Code run on Rosetta that includes SSE2, AVX, and AVX2 codepaths
+- Separate AVX and AVX2 only versions of that code
+- Rosetta aot compilation files for that code
+- Full Ghidra Disassemblies of those AOT files
 
 ## Preamble and history
 
@@ -82,13 +82,13 @@ Here is our AVX code:
 The only changes we’ll make is changing the xmm0 and xmm1 registers to ymm0 and ymm1 registers to access the whole 256 bits and expanding sum to 8 slots so we can receive those 8 ints back.
 
 It doesn’t really matter how this code works, but for the sake of this post I’ll explain.
--We take in a vector of length n
--Initialize ymm1 (where our output will be stored) to 0
--Grab 8 ints (32bitsx8=256bits) out of the vector and load them into ymm0.
--Add ymm0 to ymm1 and store the result in ymm1
--Loop n/8 times doing this until we have finished grabbing all there is to grab from the vector
--output the result stored in register ymm1 to the variable sum.
--sum sum and return the summed sum of sum.
+- We take in a vector of length n
+- Initialize ymm1 (where our output will be stored) to 0
+- Grab 8 ints (32bitsx8=256bits) out of the vector and load them into ymm0.
+- Add ymm0 to ymm1 and store the result in ymm1
+- Loop n/8 times doing this until we have finished grabbing all there is to grab from the vector
+- output the result stored in register ymm1 to the variable sum.
+- sum sum and return the summed sum of sum.
 
 This code works the same for AVX, just using 4 ints instead of 8 for a total of 128bits of data and looping accordingly.
 
@@ -142,7 +142,7 @@ We’ll separate out just the AVX and AVX2 code paths into their bare minimums t
 
 The disassemblies are waaay too long to put in here, but rest assured they are in the code folder. First off:
 
--The AVX/2 code paths definitely use ARM NEON
+- The AVX/2 code paths definitely use ARM NEON
 We can see our vpxor, vmovdqu, vpaddd turned in to:
 0133c  movi       v1.2D,#0x0
 01384  mov       v0.16B,v24.16B
