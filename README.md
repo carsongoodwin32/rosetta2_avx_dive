@@ -140,7 +140,7 @@ Okay let’s go ahead and check out the resulting Rosetta2 translation of this p
 We have to disable SIP to do this, so if you ARE playing along, do this in a VM.
 We’ll separate out just the AVX and AVX2 code paths into their bare minimums that they’ll need to function, recompile them, and run them to get their translated outputs. (All relevant files are in the code folder)
 
-The disassemblies are waaay too long to put in here, but rest assured they are in the code folder. First off:
+The disassemblies are waaay too long to put in here, but rest assured they are in the plaintext_disasm folder so you can poke around if you want! First off:
 
 The AVX/2 code paths definitely use ARM NEON
 We can see our vpxor, vmovdqu, vpaddd turned in to:
