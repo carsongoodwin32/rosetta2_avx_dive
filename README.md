@@ -19,7 +19,7 @@ AVX is blatantly NOT supported in macOS versions under 14.x running on M Series 
 
 *At least until June 10th when macOS 15.0 Developer Beta was released. 
 
-#Theory
+# Theory
 
 Despite this being very clearly a Rosetta2 addition, the only place I see this being advertised is under the GPTK2 banner. You don’t even have to have GPTK2 downloaded or anywhere on your system to run AVX2 code, it just works-ish! Users on Twitter and Discord have been reporting that a lot of games that didn’t previously run, now run great! There are some caveats, but we’ll get to that a little later.
 
@@ -37,7 +37,7 @@ Shoutouts to Koh M. Nakagawa for this guide on how to analyze Rosetta2 translati
 
 I’m specifically interested in how Apple is handling all of the 256bit vector instructions so let’s go!
 
-#AVX Code and Explanation
+# AVX Code and Explanation
 
 First, we should probably write some code that we know works and produces correct results on an x86 based machine. My idea is just to take a very large vector of random integers, sum all of them, and output their sum. Not very complex, but since the major difference between AVX and AVX2 is 128bit int support and 256bit int support this will be fine for our use cases.
 
@@ -178,7 +178,7 @@ Instead of what it should actually do:
 ``` 
 which is increment through the vector by 256 bits each loop. We get the “correct” results. Albeit now our code is 120% slower than the AVX code path. Of course, this is broken completely on x86_64 because this is not how AVX2 should actually work to my knowledge.
 
-#Final Thoughts
+# Final Thoughts
 
 Well, That’s about all I have time for today. I might expand more on this topic in the future and I’ll edit this if a solution comes up in a newer version of macOS. We’ll see if we can diff the .aot files to see what they fixed!
 
