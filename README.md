@@ -79,7 +79,7 @@ Here is our AVX code:
     return sum[0] + sum[1] + sum[2] + sum[3];
 ```
 
-The only changes we’ll make is changing the xmm0 and xmm1 registers to ymm0 and ymm1 registers to access the whole 256 bits, making the loop shift 256bits every iteration, and expanding sum to 8 slots so we can receive those 8 ints back.
+The only changes we’ll make for AVX2 support is changing the xmm0 and xmm1 registers to ymm0 and ymm1 registers to access the whole 256 bits, making the loop shift 256bits every iteration, and expanding sum to 8 slots so we can receive those 8 ints back.
 
 It doesn’t really matter how this code works, but for the sake of this post I’ll explain.
 - We take in a vector of length n
