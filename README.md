@@ -8,7 +8,7 @@ Last year at WWDC when Game Porting Toolkit 1 came out, I was loving the fact th
 
 Well, it worked for a whole lot of things, but there’s always a couple hairs in the soup aren’t there?
 
-You see, for YEARS *almost* every x86 processor has been built with something called AVX which is an instruction set addition that allows for easier manipulation of vectors and the like. You can read about it here if you want to know more, but for the purposes of this explanation, just know that AVX (and it’s younger sibling AVX2) are instructions that are included on just about any x86_64 processor worth its sand.
+You see, for YEARS *almost* every x86 processor has been built with something called AVX which is an instruction set addition that allows for easier manipulation of vectors and the like. You can read about it [here](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) if you want to know more, but for the purposes of this explanation, just know that AVX (and it’s younger sibling AVX2) are instructions that are included on just about any x86_64 processor worth its sand.
 
 AVX, from the looks of it, is generally pretty useful for games. A lot of games that have been coming out recently have started using it. I mean, If the vast majority of the market is able to run these kinds of codepaths, and it allows you to do your work more efficiently, why wouldn’t you as a game developer take advantage of it?
 
@@ -33,8 +33,8 @@ Translate AVX and AVX2 to equivalent NEON instructions.
 path 2 (This is specifically something only Apple can do as of right now):
 Use AMX Trickery.
 
-Apple being Apple, is not disclosing exactly how they’re doing any of their translation, but we have a way to figure out what we want to know using a pretty great blog post that I’ll link to here.
-Shoutouts to Koh M. Nakagawa for this guide on how to analyze Rosetta2 translations!
+Apple, being Apple, is not disclosing exactly how they’re doing any of their translation, but we have a way to figure out what we want to know using a pretty great blog post that I’ll link to [here](https://ffri.github.io/ProjectChampollion/part1/).
+Shoutouts to Koh M. Nakagawa for their guide on how to analyze Rosetta2 translations!
 
 I’m specifically interested in how Apple is handling all of the 256bit vector instructions so let’s go!
 
@@ -91,7 +91,7 @@ We can compile this under Windows to test that my code is doing what it should b
 ```
 
 And we can run the .exe that it generated.
-The results are not too surprising to be honest:
+The results are not too surprising to be honest (Run on a Dell XPS 15 with a 13700h):
 ```
 ---------------------------Average of 10 Runs-------------------------------
 SSE2 vs AVX: 2.88142% runtime difference
