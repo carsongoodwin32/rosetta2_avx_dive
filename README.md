@@ -146,7 +146,7 @@ The AVX/2 code paths definitely use ARM NEON
 We can see our vpxor, vmovdqu, vpaddd turned in to:
 ```
 0133c  movi       v1.2D,#0x0
-01384  mov       v0.16B,v24.16B
+01384  mov        v0.16B,v24.16B
 01390  add        v1.4S,v1.4S,v0.4S
 ```
 
@@ -160,9 +160,9 @@ And our 256b variants of those instructions turned in to:
 ```
 Plus a bunch of surrounding code that I won’t throw here.
 
-About all I can sum from this is that the 256b vpadds and vpxors are coming through correctly. Something about the surrounding code isn’t preserving something into the final output though…
+About all I can sum from this is that the 256b vpadds and vpxors are coming through correctly. Something about the surrounding code isn’t preserving something (specifically that second add instruction) into the final output though…
 
-This is supported by the fact that if we modify the AVX2 codepath to do:
+This hypothesis is supported by the fact that if we modify the AVX2 codepath to do:
 ```
     for (int i = 0; i < VECTOR_SIZE; i += 4) {
         __asm__ __volatile__ (
@@ -175,7 +175,7 @@ This is supported by the fact that if we modify the AVX2 codepath to do:
     }
 
 ```
-
+which essentially negates the need for the second by only shifting through the vector 128b at a time,
 Instead of what it should actually do:
 ```
     for (int i = 0; i < VECTOR_SIZE; i += 8) {
@@ -189,9 +189,11 @@ Instead of what it should actually do:
     }
 
 ``` 
-which is increment through the vector by 256 bits each loop. We get the “correct” results. Albeit now our code is 120% slower than the AVX code path. Of course, this is broken completely on x86_64 because this is not how AVX2 should actually work to my knowledge.
+which is increment through the vector by 256 bits each loop. We get the correct results (meaning that all of the sums are the same). Albeit now our code is 120% slower than the AVX code path. Of course, this is broken completely on x86_64 because this is not how AVX2 should actually work to my knowledge.
 
 ## Final Thoughts
 
-Well, That’s about all I have time for today. I might expand more on this topic in the future and I’ll edit this if a solution comes up in a newer version of macOS. We’ll see if we can diff the .aot files to see what they fixed!
+TL;DR AVX2 256bit integer commands (vpaddd specifically tested here, not sure about others) throw away the second 128b of the add causing incorrect AVX2 emulation.
+
+Well, That’s about all I have time for today. I might expand more on this topic in the future. Maybe I'll check out other AVX commands and see how well they work. I’ll edit this if a solution comes up in a newer version of macOS. We’ll see if we can diff the .aot files to see what they fixed!
 
