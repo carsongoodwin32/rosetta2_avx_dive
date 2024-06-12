@@ -37,10 +37,10 @@ But hold up, how is Apple doing this? Well I don’t know exactly. But I want to
 Well, there are generally two paths that Apple can take to translate and run AVX2 code from my understanding:
 
 path 1 (This is what most x86_64 Translation Layers will do going forward):
-Translate AVX and AVX2 to equivalent NEON instructions.
+- Translate AVX and AVX2 to equivalent NEON instructions.
 
 path 2 (This is specifically something only Apple can do as of right now):
-Use AMX Trickery.
+- Use AMX Trickery.
 
 Apple, being Apple, is not disclosing exactly how they’re doing any of their translation, but we have a way to figure out what we want to know using a pretty great blog post that I’ll link to [here](https://ffri.github.io/ProjectChampollion/part1/).
 Shoutouts to Koh M. Nakagawa for their guide on how to analyze Rosetta2 translations!
