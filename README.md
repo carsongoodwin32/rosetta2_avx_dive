@@ -142,19 +142,22 @@ We’ll separate out just the AVX and AVX2 code paths into their bare minimums t
 
 The disassemblies are waaay too long to put in here, but rest assured they are in the code folder. First off:
 
-- The AVX/2 code paths definitely use ARM NEON
+The AVX/2 code paths definitely use ARM NEON
 We can see our vpxor, vmovdqu, vpaddd turned in to:
+```
 0133c  movi       v1.2D,#0x0
 01384  mov       v0.16B,v24.16B
 01390  add        v1.4S,v1.4S,v0.4S
+```
 
 And our 256b variants of those instructions turned in to:
+```
 01340 movi       v1.2D,#0x0
 01344 movi       v24.2D,#0x0
 013d0 mov        v0.16B,v24.16B
 013e0 add        v1.4S,v1.4S,v0.4S
 013e4 add        v25.4S,v25.4S,v24.4S
-
+```
 Plus a bunch of surrounding code that I won’t throw here.
 
 About all I can sum from this is that the 256b vpadds and vpxors are coming through correctly. Something about the surrounding code isn’t preserving something into the final output though…
