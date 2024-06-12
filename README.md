@@ -1,4 +1,13 @@
-# rosetta2 avx implementation experimentation
+# rosetta2 avx/2 implementation experimentation
+
+## What is this repo about?
+This repo contains the results of AVX and AVX2 code experiments I ran on June 11, 2024 on the macOS 15.0 Developer Beta version of Rosetta2
+
+The files contained in this repo include:
+-Code run on Rosetta that includes SSE2, AVX, and AVX2 codepaths
+-Separate AVX and AVX2 only versions of that code
+-Rosetta aot compilation files for that code
+-Full Ghidra Disassemblies of those AOT files
 
 ## Preamble and history
 
@@ -122,7 +131,7 @@ SSE2 Int Sum Result: -773110574 Time: 0.411268 seconds
 AVX Int Sum Result: -773110574 Time: 0.411619 seconds 
 AVX2 Int Sum Result: -1826000660 Time: 0.463102 seconds
 ```
-It’s worse and it’s… wrong?
+It’s worse and it’s… wrong? These sums should all be the same. What is going on here?
 
 #Looking at the dissassembly
 
