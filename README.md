@@ -79,18 +79,18 @@ Here is our AVX code:
     return sum[0] + sum[1] + sum[2] + sum[3];
 ```
 
-The only changes we’ll make is changing the xmm0 and xmm1 registers to ymm0 and ymm1 registers to access the whole 256 bits and expanding sum to 8 slots so we can receive those 8 ints back.
+The only changes we’ll make is changing the xmm0 and xmm1 registers to ymm0 and ymm1 registers to access the whole 256 bits, making the loop shift 256bits every iteration, and expanding sum to 8 slots so we can receive those 8 ints back.
 
 It doesn’t really matter how this code works, but for the sake of this post I’ll explain.
 - We take in a vector of length n
-- Initialize ymm1 (where our output will be stored) to 0
-- Grab 8 ints (32bitsx8=256bits) out of the vector and load them into ymm0.
-- Add ymm0 to ymm1 and store the result in ymm1
-- Loop n/8 times doing this until we have finished grabbing all there is to grab from the vector
-- output the result stored in register ymm1 to the variable sum.
+- Initialize xmm1 (where our output will be stored) to 0
+- Grab 4 ints (32bitsx4=128bits) out of the vector and load them into xmm0.
+- Add xmm0 to xmm1 and store the result in xmm1
+- Loop n/4 times doing this until we have finished grabbing all there is to grab from the vector
+- output the result stored in register xmm1 to the variable sum.
 - sum sum and return the summed sum of sum.
 
-This code works the same for AVX, just using 4 ints instead of 8 for a total of 128bits of data and looping accordingly.
+This code works the same for AVX2, again using 8 ints instead of 4 for a total of 256bits of data and looping accordingly.
 
 I’ve written a little SIMD benchmark tool using this premise with SSE2, AVX, and AVX2 instructions that you can find in the code folder of this repo if you want to play along. It’s the same general code structure for the SSE2 codepath as well. I included SSE2 because it’s well supported on Rosetta2. It just uses the same registers as the AVX code (xmm0 and xmm1) but uses movdqu and paddd instead of the v versions of those. Same thing.
 
