@@ -175,7 +175,7 @@ This hypothesis is supported by the fact that if we modify the AVX2 codepath to 
     }
 
 ```
-which essentially negates the need for the second by only shifting through the vector 128b at a time,
+which essentially negates the need for the second add by only shifting through the vector 128b at a time,
 Instead of what it should actually do:
 ```
     for (int i = 0; i < VECTOR_SIZE; i += 8) {
