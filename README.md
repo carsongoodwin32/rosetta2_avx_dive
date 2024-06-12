@@ -116,7 +116,7 @@ We can compile this same exact code under macOS by running:
 g++ -msse2 -mavx -mavx2 -arch x86_64 avxbench.cpp -o benchmark
 ```
 
-Let’s run the resulting binary and check out how great performance is!
+Let’s run the resulting binary and check out how great performance is! (run on a 15 inch macbook air with m2)
 ```
 ---------------------------Average of 10 Runs------------------------------- 
 SSE2 vs AVX: -0.147036% runtime difference 
