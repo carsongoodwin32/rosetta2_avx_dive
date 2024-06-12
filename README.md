@@ -1,6 +1,6 @@
 # rosetta2_avx_dive
 
-# Preamble and history
+## Preamble and history
 
 When I heard that Apple had released Game Porting Toolkit 2, I was ecstatic. This was a sequel to something that I was really enthusiastic about when it first came out. 
 
