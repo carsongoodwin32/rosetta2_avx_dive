@@ -131,7 +131,8 @@ SSE2 Int Sum Result: -773110574 Time: 0.411268 seconds
 AVX Int Sum Result: -773110574 Time: 0.411619 seconds 
 AVX2 Int Sum Result: -1826000660 Time: 0.463102 seconds
 ```
-It’s worse and it’s… wrong? These sums should all be the same. What is going on here?
+It’s worse and ~~it’s… wrong? These sums should all be the same. What is going on here?~~
+EDIT: This is my fault. Check issue #1 for details on why I'm wrong here!
 
 ## Looking at the dissassembly
 
@@ -159,6 +160,8 @@ And our 256b variants of those instructions turned in to:
 013e4 add        v25.4S,v25.4S,v24.4S
 ```
 Plus a bunch of surrounding code that I won’t throw here.
+
+EDIT: This is all wrong below. Read Issue #1 for details on why. I'm going to leave this here so you can enjoy my ramblings though!
 
 About all I can sum from this is that the 256b vpadds and vpxors are coming through correctly. Something about the surrounding code isn’t preserving something (specifically that second add instruction) into the final output though…
 
@@ -193,7 +196,8 @@ which is increment through the vector by 256 bits each loop. We get the correct 
 
 ## Final Thoughts
 
-TL;DR AVX2 256bit integer commands (vpaddd specifically tested here, not sure about others) throw away the second 128b of the add causing incorrect AVX2 emulation.
+~~TL;DR AVX2 256bit integer commands (vpaddd specifically tested here, not sure about others) throw away the second 128b of the add causing incorrect AVX2 emulation.~~
+EDIT: again, read issue #1 to see why I got this wrong here.
 
-Well, That’s about all I have time for today. I might expand more on this topic in the future. Maybe I'll check out other AVX commands and see how well they work. I’ll edit this if a solution comes up in a newer version of macOS. We’ll see if we can diff the .aot files to see what they fixed!
+Well, That’s about all I have time for today. I might expand more on this topic in the future. Maybe I'll check out other AVX commands and see how well they work. ~~I’ll edit this if a solution comes up in a newer version of macOS. We’ll see if we can diff the .aot files to see what they fixed!~~
 
